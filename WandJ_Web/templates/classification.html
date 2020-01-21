@@ -1,63 +1,66 @@
-{% extends 'base.html' %}
+{% extends 'results.html' %}
 
 
 {% block title %}Whale&Jaguar{% endblock %}
 
-{% block content %}
-<div class="container-fluid">
-  <h1>Classification Analysis</h1>
-  <p>Classifies a piece of text or a URL according to a predefined taxonomy, 
-      We use 2 industry standard taxonomies when classifying text.
-    
-        IPTC NewsCodes - International standard for categorizing news content
-        IAB QAG - The Interactive Advertising Bureau’s quality guidelines for classifying ads
-  </p>
-</div>
-<div class="container-fluid">
-  <form method="post" id="userForm">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
+{% block query %}
+<div class="col-4">
+  <h3>Classification Analysis</h3>
+  <span>Classifies a piece of text or a URL according to a predefined taxonomy,
+    We use 2 industry standard taxonomies when classifying text.
+
+    IPTC NewsCodes - International standard for categorizing news content
+    IAB QAG - The Interactive Advertising Bureau’s quality guidelines for classifying ads
+  </span>
+  <div class="container-fluid">
+    <form method="post" id="userForm">
+      {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
       {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit" class="btn btn-dark">Analize</button>
-  </form>
-</div>
-
-<div class="container-fluid">
-  <div class="card">
-    <div class="card-body">
-      {{ data.text }}
-    </div>
+      <button type="submit" class="btn btn-dark">Analize</button>
+    </form>
   </div>
-
-  <table class="table">
-    <thead class="thead-dark">
-
-      <tr>
-
-        <th scope="col">Code</th>
-        <th scope="col">Label</th>
-        <th scope="col">Confidence</th>
-      </tr>
-
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">{{ categories.code}}</th>
-        <th scope="row">{{ categories.label}}</th>
-        <th scope="row">{{ categories.confidence}}</th>
-      </tr>
-    </tbody>
 </div>
-</table>
+
+<div class="col-6">
+  <div class="container-fluid">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Label</th>
+          <th scope="col">Confidence</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">{{ categories.code}}</th>
+          <th scope="row">{{ categories.label}}</th>
+          <th scope="row">{{ categories.confidence}}</th>
+        </tr>
+      </tbody>
+    </table>
+    <span>Analized text:</span>
+    <div class="card">
+      <div class="card-body">
+        {{ data.text }}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 
 {% endblock %}

@@ -26,13 +26,12 @@
 <body>
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+      <div class="container-fluid px-5">
         <div class="navbar-header">
           <a class="navbar-brand" href="{% url 'home' %}">Text Analysis API</a>
         </div>
 
         <div class="navbar" id="navbarText">
-
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               {% if user.is_authenticated %}
@@ -59,8 +58,7 @@
   </header>
 
   <main>
-    {% block text %}
-    <div class="container p-4">
+   <div class="container p-4">
       <span>
         This is web page that use the AYLIEN Text Analysis API,
         a package of Natural Language Processing and Machine Learning-powered APIs
@@ -70,48 +68,16 @@
           target="_blank">here</a>.
       </span>
     </div>
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
+    <div class="container-fluid mx-5 px-5">
+      <div class="row">
+        {% block query %}
+        {% endblock %}
+      </div>
+    </div>
   </main>
 
-  <!-- {% block script %}
-<script src=" ../static/js/scripts.js" type="text/javascript"></script>
-            <script>
-
-alert(textapi)
-$("#userForm").submit(function(event) {
-
-/* stop form from submitting normally */
-event.preventDefault();
-
-/* get some values from elements on the page: */
-var $form = $(this),
-    inText = $form.find('input[name="inputText"]').val(),
-    mode = $form.find('input[name="mode"]').val(),
-    lan = $form.find('input[name="language"]').val(),
-    url = $form.attr('action');
-    var param1;
-    if(inText.startsWith('http')){
-      param1 = 'url'
-    } else {
-      param1 = 'text'
-    }
-
-/* Send the data using post */
-var posting = $.post(url, {
-    param1: param1,
-    mode: mode,
-    language: lan
-  });
-  posting.done(function(data) {
-    // var content = $(data).find('#content');                     
-    // $("#result").empty().append(content);
-    console.log(data)
-  });
-});
-</script>
-            {% endblock %} -->
 </body>
 
 </html>
+
+

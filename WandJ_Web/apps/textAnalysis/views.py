@@ -36,7 +36,7 @@ def SentimentView(request):
             dictSentiments = {param1: inputText, 'mode': mode,'language': language}          
             sentiment = client.Sentiment(dictSentiments)
             sentimentList = [ (k,json.dumps(v)) for k, v in sentiment.items() ]
-            return render(request, 'sentiments.html',  {'data':sentimentList, 'form': form})
+            return render(request, 'sentiments.html',  {'data':sentimentList, 'form': form, 'text':sentiment['text']})
     else:
         form = SentimentsForm()
     return render(request, 'sentiments.html', {'form': form})

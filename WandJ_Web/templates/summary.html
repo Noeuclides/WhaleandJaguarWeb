@@ -1,62 +1,64 @@
-{% extends 'base.html' %}
+{% extends 'results.html' %}
 
 
 {% block title %}Whale&Jaguar{% endblock %}
 
-{% block content %}
-<div class="container-fluid">
-  <h1>Summarization</h1>
-  <p>Automatically summarizes an article into a few key sentences.
-  </p>
-</div>
-<div class="container-fluid">
-  <form method="post" id="userForm">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
+{% block query %}
+<div class="col-4">
+  <h3>Summarization</h3>
+  <span>Automatically summarizes an article into a few key sentences.
+  </span>
+
+  <div class="container-fluid">
+    <form method="post" id="userForm">
+      {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
       {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit" class="btn btn-dark">Analize</button>
-  </form>
+      <button type="submit" class="btn btn-dark">Analize</button>
+    </form>
+  </div>
 </div>
 
-
-<div class="container-fluid">
-    <div class="card">
-      <div class="card-body">
-        {{ data.text }}
-      </div>
-    </div>
-  
+<div class="col-6">
+  <div class="container-fluid">
     <table class="table">
       <thead class="thead-dark">
-  
+
         <tr>
-  
+
           <th scope="col">#</th>
           <th scope="col">Sentence</th>
         </tr>
-  
+
       </thead>
       <tbody>
-          {% for sentence in sentences %}
+        {% for sentence in sentences %}
         <tr>
           <th scope="row">{{ forloop.counter }}</th>
           <th scope="row">{{ sentence }}</th>
-         
+
         </tr>
         {% endfor %}
       </tbody>
   </div>
   </table>
-  
+  <span>Analized text:</span>
+  <div class="card">
+    <div class="card-body">
+      {{ data.text }}
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

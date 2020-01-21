@@ -3,24 +3,30 @@
 {% block title %}Whale&Jaguar{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container p-4">
+  <h6>Choose the type of analysis you want to do to your text:</h6>
+  <div class="row p-4 m-4">
     {% if user.is_authenticated %}
-    Hi {{ user.username }}!
-    <div class="row">
-      {% for option in options %}
-      <div class="col">
-        <div class="card">
-        <a href="{% url option.1 %}" class="card-body badge-dark">{{ option.0 }}</a>
+
+    {% for option in options %}
+    <div class="col">
+      <div class="card">
+        <a href="{% url option.1 %}" class="card-body btn btn-primary badge-dark">{{ option.0 }}</a>
       </div>
-      </div>
-      {% endfor %}
     </div>
+    {% endfor %}
+
     {% else %}
-  <p>You are not logged in</p>
-  {% for option in options %}
-  <div class="col"><a href="{% url 'login' %}" class="badge badge-dark">{{ option.0 }}</a></div>
-  {% endfor %}  
-  {% endif %}
+    {% for option in options %}
+    <div class="col">
+      <div class="card">
+        <a href="{% url 'login' %}" class="card-body btn btn-primary badge-dark">{{ option.0 }}</a>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+  </div>
 </div>
 
 

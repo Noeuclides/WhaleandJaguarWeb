@@ -1,62 +1,66 @@
-{% extends 'base.html' %}
+{% extends 'results.html' %}
 
 
 {% block title %}Whale&Jaguar{% endblock %}
 
-{% block content %}
-<div class="container-fluid">
-  <h1>Entity Extraction</h1>
-  <p>xtracts named entities (people, organizations, products and locations) 
+{% block query %}
+<div class="col-4">
+  <h3>Entity Extraction</h3>
+  <span>Extracts named entities (people, organizations, products and locations)
     and values (URLs, emails, telephone numbers, currency amounts and percentages) mentioned in a body of text.
-  </p>
-</div>
-<div class="container-fluid">
-  <form method="post" id="userForm">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
+  </span>
+  <div class="container-fluid">
+    <form method="post" id="userForm">
+      {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
       {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit" class="btn btn-dark">Analize</button>
-  </form>
+      <button type="submit" class="btn btn-dark">Analize</button>
+    </form>
+  </div>
 </div>
 
-<div class="container-fluid">
+<div class="col-6">
+
+  <div class="container-fluid">
+
+    <table class="table">
+      <thead class="thead-dark">
+
+        <tr>
+
+          <th scope="col">Type</th>
+          <th scope="col">Entity</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        {% for k, v in entities.items %}
+        <tr>
+
+          <th scope="row">{{ k }}</th>
+          <th scope="row">{{ v }}</th>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+  </div>
+  </table>
+  <span>Analized text:</span>
   <div class="card">
     <div class="card-body">
       {{ data.text }}
     </div>
   </div>
-
-  <table class="table">
-    <thead class="thead-dark">
-
-      <tr>
-
-        <th scope="col">Type</th>
-        <th scope="col">Entity</th>
-      </tr>
-
-    </thead>
-    <tbody>
-        {% for k, v in entities.items %}
-      <tr>
-        
-        <th scope="row">{{ k }}</th>
-        <th scope="row">{{ v }}</th>
-       
-      </tr>
-      {% endfor %}
-    </tbody>
 </div>
-</table>
 
 {% endblock %}

@@ -1,71 +1,62 @@
-{% extends 'base.html' %}
+{% extends 'results.html' %}
 
 
 {% block title %}Whale&Jaguar{% endblock %}
 
-{% block content %}
-<div class="container-fluid">
-  <h1>Sentiment Analysis</h1>
-  <p>Detects the sentiment of a document (positive, negative or neutral)
+
+{% block query %}
+<div class="col-4">
+  <h3>Sentiment Analysis</h3>
+  <span>Detects the sentiment of a document (positive, negative or neutral)
     and provides a subjective or objective label to text.
-  </p>
-</div>
-<div class="container-fluid">
-  <form method="post" id="userForm">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-      {{ field.label_tag }}<br>
-      {{ field }}
-      {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-      {% endif %}
-      {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
+  </span>
+  <div class="container-fluid">
+    <form method="post" id="userForm">
+      {% csrf_token %}
+      {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
       {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit" class="btn btn-dark">Analize</button>
-  </form>
+      <button type="submit" class="btn btn-dark">Analize</button>
+    </form>
+  </div>
 </div>
-
-<div class="container-fluid">
-  <div class="card">
-    <div class="card-body">
-      {% for item in data %}
-      {% if item.0 == 'text' %}
-      {{ item.1 }}
-
-      {% endif %}
-      {% endfor %}
+<div class="col-6">
+  <div class="container-fluid">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          {% for item in data %}
+          {% if item.0 != 'text' %}
+          <th scope="col">{{ item.0 }}</th>
+          {% endif %}
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for item in data %}
+          {% if item.0 != 'text' %}
+          <th scope="row">{{ item.1 }}</th>
+          {% endif %}
+          {% endfor %}
+        </tr>
+      </tbody>
+    </table>
+    <span>Analized text:</span>
+    <div class="card">
+      <div class="card-body"> 
+        {{ text }}
+      </div>
     </div>
   </div>
-
-  <table class="table">
-    <thead class="thead-dark">
-
-      <tr>
-        {% for item in data %}
-        {% if item.0 != 'text' %}
-        <th scope="col">{{ item.0 }}</th>
-        {% endif %}
-        {% endfor %}
-      </tr>
-
-    </thead>
-
-
-    <tbody>
-
-      <tr>
-        {% for item in data %}
-        {% if item.0 != 'text' %}
-        <th scope="row">{{ item.1 }}</th>
-        {% endif %}
-        {% endfor %}
-      </tr>
-    </tbody>
 </div>
-</table>
-
 {% endblock %}
