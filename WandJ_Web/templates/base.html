@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Whale & Jaguar{% endblock %}</title>
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block head %}
+{% endblock %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% block style %}
+{% endblock %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<title>{% block title %}Whale & Jaguar{% endblock %}</title>
+</head>
+<body>
     <header>
-      <h1>API</h1>
+        <a href="{% url 'home' %}">
+          <h2>Text Analysis API</h2></a>
       {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">logout</a>
       {% else %}
-        <a href="{% url 'login' %}">login</a> / <a href="signup/"">signup</a>
+        <a href="{% url 'login' %}">login</a> / <a href="{% url 'signup' %}"">signup</a>
       {% endif %}
       <hr>
     </header>
@@ -18,5 +29,43 @@
       {% block content %}
       {% endblock %}
     </main>
-  </body>
+
+<!-- {% block script %}
+<script src="../static/js/scripts.js" type="text/javascript"></script>
+<script>
+
+alert(textapi)
+$("#userForm").submit(function(event) {
+
+/* stop form from submitting normally */
+event.preventDefault();
+
+/* get some values from elements on the page: */
+var $form = $(this),
+    inText = $form.find('input[name="inputText"]').val(),
+    mode = $form.find('input[name="mode"]').val(),
+    lan = $form.find('input[name="language"]').val(),
+    url = $form.attr('action');
+    var param1;
+    if(inText.startsWith('http')){
+      param1 = 'url'
+    } else {
+      param1 = 'text'
+    }
+
+/* Send the data using post */
+var posting = $.post(url, {
+    param1: param1,
+    mode: mode,
+    language: lan
+  });
+  posting.done(function(data) {
+    // var content = $(data).find('#content');                     
+    // $("#result").empty().append(content);
+    console.log(data)
+  });
+});
+</script>
+{% endblock %} -->
+</body>
 </html>

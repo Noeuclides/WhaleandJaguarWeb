@@ -1,8 +1,22 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.views.generic import CreateView
+
 from .forms import SignUpForm
+
 # Create your views here.
+
+def Home(request):
+    """
+    """
+    options = [
+        ('Sentiments', 'sentiments'),
+        ('Classification', 'classification'),
+        ('Entity', 'entities'),
+        ('Concepts', 'concepts'),
+        ('Summary', 'summary')
+    ]
+    return render(request, 'home.html', {'options': options})
+
 
 def SignUp(request):
     """

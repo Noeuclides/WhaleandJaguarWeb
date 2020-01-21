@@ -3,10 +3,25 @@
 {% block title %}Whale&Jaguar{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-{% else %}
+<div class="container">
+    {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+    <div class="row">
+      {% for option in options %}
+      <div class="col">
+        <div class="card">
+        <a href="{% url option.1 %}" class="card-body badge-dark">{{ option.0 }}</a>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
   <p>You are not logged in</p>
-{% endif %}
+  {% for option in options %}
+  <div class="col"><a href="{% url 'login' %}" class="badge badge-dark">{{ option.0 }}</a></div>
+  {% endfor %}  
+  {% endif %}
+</div>
+
+
 {% endblock %}

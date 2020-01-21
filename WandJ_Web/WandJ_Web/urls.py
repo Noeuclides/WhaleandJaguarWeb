@@ -15,12 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from apps.userlogin import views
+from apps.userlogin.views import SignUp, Home
+from apps.textAnalysis.views import (SentimentView,
+                                    ClassificationView,
+                                    EntityView,
+                                    ConceptView,
+                                    SummaryView)
+
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('signup/', views.SignUp, name='signup'),
+    path('signup/', SignUp, name='signup'),
+    path('sentiment/', SentimentView, name='sentiments'),
+    path('classification/', ClassificationView, name='classification'),
+    path('entity/', EntityView, name='entities'),
+    path('concept/', ConceptView, name='concepts'),
+    path('summary/', SummaryView, name='summary'),
     path('apps/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', Home, name='home'),
 ]
