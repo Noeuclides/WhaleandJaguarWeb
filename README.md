@@ -44,10 +44,11 @@ There you can install all the prerequisites to run the app in your computer:
     $ cd WandJ_Web/apps/textAnalysis
 
 Open the credentials.py file in your text editor and put your ID and KEY from the aylien page in the corresponding fields(inside the quotes):
-    credentials = {
-    'id': 'YOUR_ID',
-    'key': 'YOUR_KEY'
-    }
+
+     credentials = {
+        'id': 'YOUR_ID',
+        'key': 'YOUR_KEY'
+     }
 
 
 ## Run the App
@@ -69,7 +70,7 @@ If everything goes well, you should see something like this:
      Quit the server with CONTROL-C.
 
 
-go to your browser and write "http://127.0.0.1:8000/", to view the wap page:
+go to your browser and write "http://127.0.0.1:8000/", to view the wap page.
 
 
 
