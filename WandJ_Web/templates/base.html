@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,8 +48,9 @@
             {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
             {% else %}
-            <li><a href="{% url 'signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a href="{% url 'signup' %}"><span>Sign Up</span></a></li>
+            <li><span> / </span></li>
+            <li><a href="{% url 'login' %}"><span>Login</span></a></li>
             {% endif %}
           </ul>
 
@@ -75,43 +77,7 @@
     {% endblock %}
   </main>
 
-  <!-- {% block script %}
-<script src=" ../static/js/scripts.js" type="text/javascript"></script>
-            <script>
 
-alert(textapi)
-$("#userForm").submit(function(event) {
-
-/* stop form from submitting normally */
-event.preventDefault();
-
-/* get some values from elements on the page: */
-var $form = $(this),
-    inText = $form.find('input[name="inputText"]').val(),
-    mode = $form.find('input[name="mode"]').val(),
-    lan = $form.find('input[name="language"]').val(),
-    url = $form.attr('action');
-    var param1;
-    if(inText.startsWith('http')){
-      param1 = 'url'
-    } else {
-      param1 = 'text'
-    }
-
-/* Send the data using post */
-var posting = $.post(url, {
-    param1: param1,
-    mode: mode,
-    language: lan
-  });
-  posting.done(function(data) {
-    // var content = $(data).find('#content');                     
-    // $("#result").empty().append(content);
-    console.log(data)
-  });
-});
-</script>
-            {% endblock %} -->
 </body>
 
 </html>

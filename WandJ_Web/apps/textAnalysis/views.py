@@ -1,3 +1,7 @@
+"""
+Module to get the different results of the API endpoints
+"""
+
 from django.shortcuts import render, redirect
 from aylienapiclient import textapi
 from django.http import JsonResponse
@@ -7,25 +11,26 @@ from .forms import (SentimentsForm,
                     EntitiesForm,
                     ConceptsForm,
                     SummarizeForm)
+from .credentials import credentials
 
 import json
 import sys
 
 # Create your views here.
 
-
-client = textapi.Client('6694e47d', 'c2fa32a8cd49f0eca168d4d0dc9c7c25')
+# Creating the client object with the ID and KEY of the user. Using python SDK's textapi
+client = textapi.Client(credentials['id'], credentials['key'])
 
 
 
 def SentimentView(request):
     """
+    Method that makes the request to the API endpoint 'sentiment' with the parameters needed,
+    and show the results.
     """
-    print("REQUEST: ", request)
     if request.method == "POST":
         form = SentimentsForm(request.POST)
         if form.is_valid():
-            print("FORM: ", form)
             inputText = form.cleaned_data.get('inputText')
             if inputText.startswith( 'http' ):
                 param1 = 'url'
@@ -44,6 +49,8 @@ def SentimentView(request):
 
 def ClassificationView(request):
     """
+    Method that makes the request to the API endpoint 'classify' with the parameters needed,
+    and show the results.
     """
     if request.method == "POST":
         form = ClassificationForm(request.POST)
@@ -57,7 +64,6 @@ def ClassificationView(request):
             language = form.cleaned_data.get('language')
             dictClassification = {param1: inputText, 'taxonomy': taxonomy,'language': language}          
             classification = client.Classify(dictClassification)
-            print(classification['categories'][0].keys())
             return render(request, 'classification.html',  {'data':classification, 'form': form, 'categories': classification['categories'][0]})
     else:
         form = ClassificationForm()
@@ -66,6 +72,8 @@ def ClassificationView(request):
 
 def EntityView(request):
     """
+    Method that makes the request to the API endpoint 'Entity' with the parameters needed,
+    and show the results.
     """
     if request.method == "POST":
         form = EntitiesForm(request.POST)
@@ -78,7 +86,6 @@ def EntityView(request):
             language = form.cleaned_data.get('language')
             dictEntities = {param1: inputText, 'language': language}          
             entities = client.Entities(dictEntities)
-            #entitiesList = [ (k,json.dumps(v)) for k, v in entities.items() ]
             return render(request, 'entities.html',  {'data':entities, 'form': form, 'entities': entities['entities']})
     else:
         form = EntitiesForm()
@@ -86,6 +93,8 @@ def EntityView(request):
 
 def ConceptView(request):
     """
+    Method that makes the request to the API endpoint 'Concept' with the parameters needed,
+    and show the results.
     """
     if request.method == "POST":
         form = ConceptsForm(request.POST)
@@ -99,7 +108,6 @@ def ConceptView(request):
             dictConcepts = {param1: inputText, 'language': language}          
             concepts = client.Concepts(dictConcepts)
             conceptsList = [ v for v in concepts['concepts'].values() ]
-            print(conceptsList)
             return render(request, 'concepts.html',  {'data':concepts, 'form': form, 'concepts': conceptsList})
     else:
         form = ConceptsForm()
@@ -108,6 +116,8 @@ def ConceptView(request):
 
 def SummaryView(request):
     """
+    Method that makes the request to the API endpoint 'Summarize' with the parameters needed,
+    and show the results.
     """
     print("REQUEST: ", request)
     if request.method == "POST":
@@ -123,7 +133,6 @@ def SummaryView(request):
             language = form.cleaned_data.get('language')
             dictSummary = {param1: inputText, 'sentences_number': number,'language': language}          
             summary = client.Summarize(dictSummary)
-            #summaryList = [ (k,json.dumps(v)) for k, v in summary.items() ]
             return render(request, 'summary.html',  {'data':summary, 'form': form, 'sentences': summary['sentences']})
     else:
         form = SummarizeForm()
