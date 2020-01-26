@@ -1,12 +1,19 @@
 # Text Analysis API app
 
-Web application that consume the restful API of Comic Vine which is the largest comic database online.
+Web application made in django that consume the aylien text analysis API.
 
 Features:
--   Show a list of the last comics
+Get the results for endpoints:
+-   Sentiments.
     
--   Show a detail of the selected comic
+-   Classification.
 
+-   Entities.
+    
+-   Concepts.
+
+-   Summarize.
+    
 ## Prerequisites
 This app was set with python 3.5, so you have to make sure that you have python3 installed in your machine.
 
