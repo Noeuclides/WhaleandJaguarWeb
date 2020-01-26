@@ -1,12 +1,11 @@
 """WandJ_Web textAnalysis App URL Configuration
 """
-from django.contrib import admin
 from django.urls import path
 from .views import (SentimentView,
-                                    ClassificationView,
-                                    EntityView,
-                                    ConceptView,
-                                    SummaryView)
+                    ClassificationView,
+                    EntityView,
+                    ConceptView,
+                    SummaryView)
 
 
 urlpatterns = [
