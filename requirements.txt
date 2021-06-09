@@ -2,7 +2,7 @@ astroid==2.3.3
 aylien-apiclient==0.7.0
 certifi==2019.11.28
 chardet==3.0.4
-Django==2.2.9
+Django==2.2.22
 httplib2==0.16.0
 idna==2.8
 isort==4.3.21
